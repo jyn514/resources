@@ -1,0 +1,11 @@
+~/pgms/my_shellscript
+~/exam.answers
+~/create_assignment
+~/grade
+~/test1
+~/project
+~/templates
+~/smcfall
+~/patstest
+~/pgms/215_examples/[xmas spell rot13 ls hehateme countlines cmdarg.sh]
+

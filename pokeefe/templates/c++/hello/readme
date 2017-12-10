@@ -1,0 +1,14 @@
+g++ hello.cpp
+
+creates an executable hello.
+
+to execute :
+
+$ ./hello
+
+
+or
+
+$ make
+
+$ ./hello

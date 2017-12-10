@@ -1,0 +1,610 @@
+Script started on Wed 15 Nov 2017 08:43:48 AM EST
+$ pwd
+/acct/jynelson/CSCE/215/assignment4/myname
+$ ls
+hello_world.cpp  jynelson.assignment4_1.tar  main.cpp  main.o  makefile  myname  name.cpp  name.h  name.o  readme
+$ gdb myname
+GNU gdb (Ubuntu 7.11.1-0ubuntu1~16.5) 7.11.1
+Copyright (C) 2016 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.  Type "show copying"
+and "show warranty" for details.
+This GDB was configured as "x86_64-linux-gnu".
+Type "show configuration" for configuration details.
+For bug reporting instructions, please see:
+<http://www.gnu.org/software/gdb/bugs/>.
+Find the GDB manual and other documentation resources online at:
+<http://www.gnu.org/software/gdb/documentation/>.
+For help, type "help".
+Type "apropos word" to search for commands related to "word"...
+Reading symbols from myname...done.
+(gdb) step[K[Kart
+Temporary breakpoint 1 at 0x400c42: file main.cpp, line 6.
+Starting program: /acct/jynelson/CSCE/215/resources/myname/myname 
+warning: the debug information found in "/lib64/ld-2.23.so" does not match "/lib64/ld-linux-x86-64.so.2" (CRC mismatch).
+
+
+Temporary breakpoint 1, main () at main.cpp:6
+6	int main () {
+(gdb) step
+7	        name myName;
+(gdb) 
+name::name (this=0x7fffffffdd90) at name.h:5
+5	class name {
+(gdb) 
+
+
+
+main () at main.cpp:9
+9	        myName.SetLast(LAST);
+(gdb) 
+
+
+
+
+name::SetLast (this=0x7fffffffdd90, str="Nelson") at name.cpp:27
+27		last=str;
+(gdb) 
+
+
+
+28	}
+(gdb) 
+
+main () at main.cpp:10
+10	        myName.SetMiddle(MI);
+(gdb) 
+name::SetMiddle (this=0x7fffffffdd90, str="Y. ") at name.cpp:19
+19		middle=str;
+(gdb) 
+20	}
+(gdb) 
+main () at main.cpp:11
+11	        myName.SetFirst(FIRST);
+(gdb) 
+name::SetFirst (this=0x7fffffffdd90, str="Joshua ") at name.cpp:11
+11		first=str;
+(gdb) 
+12	}
+(gdb) 
+main () at main.cpp:13
+13	        cout <<"My name is: ";
+(gdb) 
+
+14	        myName.PrintFirst();
+(gdb) 
+name::PrintFirst (this=0x7fffffffdd90) at name.cpp:37
+37	        cout << first;
+(gdb) 
+38	}
+(gdb) 
+main () at main.cpp:15
+15	        myName.PrintMiddle();
+(gdb) 
+name::PrintMiddle (this=0x7fffffffdd90) at name.cpp:34
+34	        cout << middle;
+(gdb) 
+35	}
+(gdb) 
+main () at main.cpp:16
+16	        myName.PrintLast();
+(gdb) 
+name::PrintLast (this=0x7fffffffdd90) at name.cpp:31
+31		cout << last << "\n";
+(gdb) 
+My name is: Joshua Y. Nelson
+32	}
+(gdb) 
+main () at main.cpp:18
+18	        return 0;
+(gdb) 
+7	        name myName;
+(gdb) 
+name::~name (this=0x7fffffffdd90, __in_chrg=<optimized out>) at name.h:5
+5	class name {
+(gdb) 
+
+main () at main.cpp:19
+19	}
+(gdb) 
+__libc_start_main (main=0x400c36 <main()>, argc=1, argv=0x7fffffffdef8, init=<optimized out>, fini=<optimized out>, rtld_fini=<optimized out>, stack_end=0x7fffffffdee8)
+    at ../csu/libc-start.c:325
+325	../csu/libc-start.c: No such file or directory.
+(gdb) 
+__GI_exit (status=0) at exit.c:104
+104	exit.c: No such file or directory.
+(gdb) 
+103	in exit.c
+(gdb) 
+104	in exit.c
+(gdb) 
+__run_exit_handlers (status=0, listp=0x7ffff78395f8 <__exit_funcs>, run_list_atexit=run_list_atexit@entry=true) at exit.c:35
+35	in exit.c
+(gdb) 
+40	in exit.c
+(gdb) 
+__GI___call_tls_dtors () at cxa_thread_atexit_impl.c:145
+145	cxa_thread_atexit_impl.c: No such file or directory.
+(gdb) 
+146	in cxa_thread_atexit_impl.c
+(gdb) 
+164	in cxa_thread_atexit_impl.c
+(gdb) 
+__run_exit_handlers (status=0, listp=0x7ffff78395f8 <__exit_funcs>, run_list_atexit=run_list_atexit@entry=true) at exit.c:46
+46	exit.c: No such file or directory.
+(gdb) 
+50	in exit.c
+(gdb) 
+53	in exit.c
+(gdb) 
+52	in exit.c
+(gdb) 
+54	in exit.c
+(gdb) 
+78	in exit.c
+(gdb) 
+82	in exit.c
+(gdb) 
+78	in exit.c
+(gdb) 
+80	in exit.c
+(gdb) 
+82	in exit.c
+(gdb) 
+80	in exit.c
+(gdb) 
+82	in exit.c
+(gdb) 
+
+
+83	in exit.c
+(gdb) 
+50	in exit.c
+(gdb) 
+53	in exit.c
+(gdb) 
+52	in exit.c
+(gdb) 
+54	in exit.c
+(gdb) 
+78	in exit.c
+(gdb) 
+82	in exit.c
+(gdb) 
+78	in exit.c
+(gdb) 
+80	in exit.c
+(gdb) 
+82	in exit.c
+(gdb) 
+80	in exit.c
+(gdb) 
+82	in exit.c
+(gdb) 
+83	in exit.c
+(gdb) 
+50	in exit.c
+(gdb) 
+53	in exit.c
+(gdb) 
+52	in exit.c
+(gdb) 
+54	in exit.c
+(gdb) 
+78	in exit.c
+(gdb) 
+82	in exit.c
+(gdb) 
+78	in exit.c
+(gdb) 
+80	in exit.c
+(gdb) 
+82	in exit.c
+(gdb) 
+80	in exit.c
+(gdb) 
+82	in exit.c
+(gdb) 
+
+
+0x0000000000400bf0 in __do_global_dtors_aux ()
+(gdb) 
+Single stepping until exit from function __do_global_dtors_aux,
+which has no line number information.
+0x0000000000400b70 in deregister_tm_clones ()
+(gdb) 
+Single stepping until exit from function deregister_tm_clones,
+which has no line number information.
+0x0000000000400c02 in __do_global_dtors_aux ()
+(gdb) 
+Single stepping until exit from function __do_global_dtors_aux,
+which has no line number information.
+0x00000000004011e4 in _fini ()
+(gdb) 
+Single stepping until exit from function _fini,
+which has no line number information.
+0x00007ffff7171690 in __do_global_dtors_aux () from /lib/x86_64-linux-gnu/libm.so.6
+(gdb) 
+Single stepping until exit from function __do_global_dtors_aux,
+which has no line number information.
+0x00007ffff7171600 in deregister_tm_clones () from /lib/x86_64-linux-gnu/libm.so.6
+(gdb) 
+Single stepping until exit from function deregister_tm_clones,
+which has no line number information.
+0x00007ffff71716b8 in __do_global_dtors_aux () from /lib/x86_64-linux-gnu/libm.so.6
+(gdb) 
+Single stepping until exit from function __do_global_dtors_aux,
+which has no line number information.
+_fini () at ../sysdeps/x86_64/crti.S:80
+80	../sysdeps/x86_64/crti.S: No such file or directory.
+(gdb) 
+_fini () at ../sysdeps/x86_64/crtn.S:44
+44	../sysdeps/x86_64/crtn.S: No such file or directory.
+(gdb) 
+_fini () at ../sysdeps/x86_64/crtn.S:45
+45	in ../sysdeps/x86_64/crtn.S
+(gdb) 
+__run_exit_handlers (status=0, listp=0x7ffff78395f8 <__exit_funcs>, run_list_atexit=run_list_atexit@entry=true) at exit.c:83
+83	exit.c: No such file or directory.
+(gdb) 
+50	in exit.c
+(gdb) 
+53	in exit.c
+(gdb) 
+52	in exit.c
+(gdb) 
+54	in exit.c
+(gdb) 
+50	in exit.c
+(gdb) 
+53	in exit.c
+(gdb) 
+52	in exit.c
+(gdb) 
+54	in exit.c
+(gdb) 
+50	in exit.c
+(gdb) 
+53	in exit.c
+(gdb) 
+52	in exit.c
+(gdb) 
+54	in exit.c
+(gdb) 
+50	in exit.c
+(gdb) 
+53	in exit.c
+(gdb) 
+52	in exit.c
+(gdb) 
+54	in exit.c
+(gdb) 
+50	in exit.c
+(gdb) 
+53	in exit.c
+(gdb) 
+52	in exit.c
+(gdb) 
+54	in exit.c
+(gdb) 
+50	in exit.c
+(gdb) 
+87	in exit.c
+(gdb) 
+88	in exit.c
+(gdb) 
+87	in exit.c
+(gdb) 
+88	in exit.c
+(gdb) 
+94	in exit.c
+(gdb) 
+95	in exit.c
+(gdb) 
+_IO_cleanup () at genops.c:948
+948	genops.c: No such file or directory.
+(gdb) 
+951	in genops.c
+(gdb) 
+948	in genops.c
+(gdb) 
+960	in genops.c
+(gdb) 
+_IO_unbuffer_all () at genops.c:898
+898	in genops.c
+(gdb) 
+_IO_cleanup () at genops.c:948
+948	in genops.c
+(gdb) 
+951	in genops.c
+(gdb) 
+_IO_flush_all_lockp (do_lock=do_lock@entry=0) at genops.c:760
+760	in genops.c
+(gdb) 
+766	in genops.c
+(gdb) 
+772	in genops.c
+(gdb) 
+766	in genops.c
+(gdb) 
+771	in genops.c
+(gdb) 
+773	in genops.c
+(gdb) 
+766	in genops.c
+(gdb) 
+777	in genops.c
+(gdb) 
+776	in genops.c
+(gdb) 
+775	in genops.c
+(gdb) 
+776	in genops.c
+(gdb) 
+779	in genops.c
+(gdb) 
+789	in genops.c
+(gdb) 
+793	in genops.c
+(gdb) 
+791	in genops.c
+(gdb) 
+793	in genops.c
+(gdb) 
+800	in genops.c
+(gdb) 
+773	in genops.c
+(gdb) 
+793	in genops.c
+(gdb) 
+776	in genops.c
+(gdb) 
+775	in genops.c
+(gdb) 
+776	in genops.c
+(gdb) 
+779	in genops.c
+(gdb) 
+789	in genops.c
+(gdb) 
+793	in genops.c
+(gdb) 
+791	in genops.c
+(gdb) 
+793	in genops.c
+(gdb) 
+800	in genops.c
+(gdb) 
+773	in genops.c
+(gdb) 
+793	in genops.c
+(gdb) 
+776	in genops.c
+(gdb) 
+775	in genops.c
+(gdb) 
+776	in genops.c
+(gdb) 
+779	in genops.c
+(gdb) 
+789	in genops.c
+(gdb) 
+793	in genops.c
+(gdb) 
+791	in genops.c
+(gdb) 
+793	in genops.c
+(gdb) 
+800	in genops.c
+(gdb) 
+773	in genops.c
+(gdb) 
+804	in genops.c
+(gdb) 
+806	in genops.c
+(gdb) 
+810	in genops.c
+(gdb) 
+_IO_cleanup () at genops.c:960
+960	in genops.c
+(gdb) 
+_IO_unbuffer_all () at genops.c:888
+888	in genops.c
+(gdb) 
+_IO_cleanup () at genops.c:951
+951	in genops.c
+(gdb) 
+960	in genops.c
+(gdb) 
+_IO_unbuffer_all () at genops.c:888
+888	in genops.c
+(gdb) 
+890	in genops.c
+(gdb) 
+928	in genops.c
+(gdb) 
+888	in genops.c
+(gdb) 
+890	in genops.c
+(gdb) 
+892	in genops.c
+(gdb) 
+898	in genops.c
+(gdb) 
+
+906	in genops.c
+(gdb) 
+
+908	in genops.c
+(gdb) 
+910	in genops.c
+(gdb) 
+911	in genops.c
+(gdb) 
+910	in genops.c
+(gdb) 
+912	in genops.c
+(gdb) 
+915	in genops.c
+(gdb) 
+_IO_new_file_setbuf (fp=0x7ffff783a620 <_IO_2_1_stdout_>, p=0x0, len=0) at fileops.c:450
+450	fileops.c: No such file or directory.
+(gdb) 
+451	in fileops.c
+(gdb) 
+_IO_default_setbuf (fp=fp@entry=0x7ffff783a620 <_IO_2_1_stdout_>, p=0x0, len=0) at genops.c:522
+522	genops.c: No such file or directory.
+(gdb) 
+523	in genops.c
+(gdb) 
+522	in genops.c
+(gdb) 
+523	in genops.c
+(gdb) 
+_IO_new_file_sync (fp=0x7ffff783a620 <_IO_2_1_stdout_>) at fileops.c:868
+868	fileops.c: No such file or directory.
+(gdb) 
+873	in fileops.c
+(gdb) 
+868	in fileops.c
+(gdb) 
+873	in fileops.c
+(gdb) 
+875	in fileops.c
+(gdb) 
+876	in fileops.c
+(gdb) 
+893	in fileops.c
+(gdb) 
+897	in fileops.c
+(gdb) 
+_IO_default_setbuf (fp=fp@entry=0x7ffff783a620 <_IO_2_1_stdout_>, p=0x0, len=0) at genops.c:532
+532	genops.c: No such file or directory.
+(gdb) 
+525	in genops.c
+(gdb) 
+532	in genops.c
+(gdb) 
+525	in genops.c
+(gdb) 
+528	in genops.c
+(gdb) 
+__GI__IO_setb (a=<optimized out>, eb=<optimized out>, b=<optimized out>, f=<optimized out>) at genops.c:381
+381	in genops.c
+(gdb) 
+_IO_default_setbuf (fp=fp@entry=0x7ffff783a620 <_IO_2_1_stdout_>, p=0x0, len=0) at genops.c:527
+527	in genops.c
+(gdb) 
+528	in genops.c
+(gdb) 
+527	in genops.c
+(gdb) 
+528	in genops.c
+(gdb) 
+__GI__IO_setb (a=0, eb=0x7ffff783a6a4 <_IO_2_1_stdout_+132> "", b=0x7ffff783a6a3 <_IO_2_1_stdout_+131> "", f=0x7ffff783a620 <_IO_2_1_stdout_>) at genops.c:381
+381	in genops.c
+(gdb) 
+__GI__IO_setb (a=<optimized out>, eb=<optimized out>, b=<optimized out>, f=<optimized out>) at genops.c:388
+388	in genops.c
+(gdb) 
+383	in genops.c
+(gdb) 
+384	in genops.c
+(gdb) 
+388	in genops.c
+(gdb) 
+_IO_default_setbuf (fp=fp@entry=0x7ffff783a620 <_IO_2_1_stdout_>, p=<optimized out>, len=<optimized out>) at genops.c:535
+535	in genops.c
+(gdb) 
+537	in genops.c
+(gdb) 
+535	in genops.c
+(gdb) 
+536	in genops.c
+(gdb) 
+538	in genops.c
+(gdb) 
+_IO_new_file_setbuf (fp=0x7ffff783a620 <_IO_2_1_stdout_>, p=<optimized out>, len=<optimized out>) at fileops.c:455
+455	fileops.c: No such file or directory.
+(gdb) 
+454	in fileops.c
+(gdb) 
+456	in fileops.c
+(gdb) 
+458	in fileops.c
+(gdb) 
+459	in fileops.c
+(gdb) 
+_IO_unbuffer_all () at genops.c:917
+917	genops.c: No such file or directory.
+(gdb) 
+921	in genops.c
+(gdb) 
+_IO_unbuffer_all () at genops.c:922
+922	in genops.c
+(gdb) 
+928	in genops.c
+(gdb) 
+888	in genops.c
+(gdb) 
+890	in genops.c
+(gdb) 
+892	in genops.c
+(gdb) 
+928	in genops.c
+(gdb) 
+888	in genops.c
+(gdb) 
+_IO_cleanup () at genops.c:963
+963	in genops.c
+(gdb) 
+__run_exit_handlers (status=0, listp=<optimized out>, run_list_atexit=run_list_atexit@entry=true) at exit.c:97
+97	exit.c: No such file or directory.
+(gdb) 
+__GI__exit (status=status@entry=0) at ../sysdeps/unix/sysv/linux/_exit.c:27
+27	../sysdeps/unix/sysv/linux/_exit.c: No such file or directory.
+(gdb) 
+31	in ../sysdeps/unix/sysv/linux/_exit.c
+(gdb) 
+33	in ../sysdeps/unix/sysv/linux/_exit.c
+(gdb) 
+31	in ../sysdeps/unix/sysv/linux/_exit.c
+(gdb) 
+[Inferior 1 (process 2886) exited normally]
+(gdb) 
+The program is not being run.
+(gdb) 
+The program is not being run.
+(gdb) 
+The program is not being run.
+(gdb) 
+The program is not being run.
+(gdb) 
+The program is not being run.
+(gdb) 
+The program is not being run.
+(gdb) 
+The program is not being run.
+(gdb) 
+The program is not being run.
+(gdb) 
+The program is not being run.
+(gdb) 
+The program is not being run.
+(gdb) 
+The program is not being run.
+(gdb) 
+The program is not being run.
+(gdb) 
+The program is not being run.
+(gdb) 
+The program is not being run.
+(gdb) exit
+Undefined command: "exit".  Try "help".
+(gdb) e[Kquit
+$ quit
+-i: 4: quit: not found
+$ exit
+
+Script done on Wed 15 Nov 2017 08:44:23 AM EST
