@@ -30,7 +30,7 @@ PROGRAM = didnt-change-makefile
 
 #$(COMPILED): $(SOURCE)
 #	@:$(call fail_if_not_defined, SOURCE)
-#	$(CC) $(SOURCE)
+#	$(CC) -o $(COMPILED) $(SOURCE)
 
 #$(PROGRAM).s: $(SOURCE)
 #	@:$(call fail_if_not_defined, SOURCE)
@@ -55,7 +55,7 @@ PROGRAM = didnt-change-makefile
 
 # For your own sanity, I recommend you keep this updated
 tasks:
-	@echo tasks: backup clean clobber over \
+	@echo tasks: backup clean clobber over all \
 		     run test assembly clean_run self_check
 
 all: $(COMPILED)
@@ -65,7 +65,7 @@ all: $(COMPILED)
 .DEFAULT_GOAL := tasks
 
 # If you add named goals, add them here to avoid naming conflicts
-.PHONY: clean clobber backup tasks over \
+.PHONY: clean clobber backup tasks over all \
 	test archive assembly run clean_run self_check
 
 # := means evaluate immediately instead of lazily
@@ -86,7 +86,7 @@ endef
 
 clean:
 	rm -rf testing
-	rm -f $(COMPILED)
+	rm -f $(COMPILED) *.out *.o *.java
 
 # add more files on next line for them to be added automatically to archive
 $(ARCHIVE): archives $(MAKEFILE) $(README) $(SOURCE)
@@ -132,15 +132,15 @@ __check_single_var_defined = \
       $(error $1 undefined$(if $2,. Comment: $2)))
 
 # pattern matching: java
-$(COMPILED): %.class: %.java
+$(filter .class,$(COMPILED)): %.class: %.java
 ifneq ($(strip $^),)
 	$(JAVAC) $<
 endif
 
 # pattern matching: all .o files require corresponding .c or .cpp files
-$(COMPILED): %.o: %.cpp
+$(filter .o,$(COMPILED)): %.o: %.cpp
 ifneq ($(strip $^),)
-	$(CC) $^ -o $@
+	$(CC) -c $^ -o $@
 endif
 
 # Directories; should be variables but I find make variables irritating to read
