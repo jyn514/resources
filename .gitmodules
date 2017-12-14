@@ -1,12 +1,16 @@
 [submodule "pokeefe/215-resources"]
 	path = pokeefe/215-resources
 	url = https://github.com/jyn514/215-resources
+	branch = master
 [submodule "dotfiles"]
 	path = dotfiles
 	url = https://github.com/jyn514/dotfiles
+	branch = master
 [submodule "notes"]
 	path = notes
 	url = https://github.com/jyn514/notes
+	branch = master
 [submodule "CSCE-240"]
 	path = CSCE-240
 	url = https://github.com/jyn514/CSCE-240
+	branch = master
