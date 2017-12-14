@@ -86,7 +86,7 @@ endef
 
 clean:
 	rm -rf testing
-	rm -f $(COMPILED) *.out *.o *.java
+	rm -f $(COMPILED) *.out *.o *.class
 
 # add more files on next line for them to be added automatically to archive
 $(ARCHIVE): archives $(MAKEFILE) $(README) $(SOURCE)
