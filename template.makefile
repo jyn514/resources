@@ -143,7 +143,8 @@ ifneq ($(strip $^),)
 	$(CC) -c $^ -o $@
 endif
 
-# Directories; should be variables but I find make variables irritating to read
+# Directories
+# TODO: should be variables
 archives:
 	mkdir archives
 
