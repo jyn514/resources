@@ -30,6 +30,15 @@ which is itself a mirror of Mr. Surray's excellent
 [site](http://www.ee.surrey.ac.uk/Teaching/Unix/)
 
 ## My works
+
+### Dotfiles
+I stole this idea shamelessly from
+[Charles Daniels](https://github.com/charlesdaniels/dotfiles).
+Check out his stuff, it's pretty cool
+
+### Notes
+Various things I found around the web
+
 ### Resources.txt
 Various useful links I've found around the web
 
