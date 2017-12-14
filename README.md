@@ -8,8 +8,9 @@ Some have been compiled by others, with a great time investment.
 GNU Lesser GPL (see LICENSE for details)
 
 ## Directories
-### Buell
-Professor [Duncan Buell](https://cse.sc.edu/duncanbuell)
+### CSCE-240/Utilities
+These programs were made by Professor
+[Duncan Buell](https://cse.sc.edu/duncanbuell), who
 teaches an introductory C++ course at the University of
 South Carolina. He also teaches Introduction to Cryptography,
 and researches [electronic voting systems](http://www.cse.sc.edu/~buell/Public_Data/evoting.html).
