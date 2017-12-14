@@ -1,3 +1,6 @@
 [submodule "pokeefe/215-resources"]
 	path = pokeefe/215-resources
 	url = https://github.com/jyn514/215-resources
+[submodule "dotfiles"]
+	path = dotfiles
+	url = https://github.com/jyn514/dotfiles
