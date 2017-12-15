@@ -13,3 +13,4 @@
 [submodule "215-resources"]
 	path = 215-resources
 	url = https://github.com/jyn514/215-resources
+	branch = master
