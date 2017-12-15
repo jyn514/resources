@@ -68,13 +68,16 @@ all: $(COMPILED)
 .PHONY: clean clobber backup tasks over all \
 	test archive assembly run clean_run self_check
 
-# := means evaluate immediately instead of lazily
-ARCHIVE := archives/$(PROGRAM)-`date -I`.tar
-
 # Files that will be used later; feel free to change these
 # Note, your test directory should NOT be the same as your current directory,
 # as this will overwrite your existing files
-TEST_ARCHIVE = testing/test.tar.gz
+
+ARCHIVE_DIR = archives
+# := means evaluate immediately instead of lazily
+ARCHIVE := $(ARCHIVE_DIR)/$(PROGRAM)-`date -I`.tar.gz
+
+TEST_DIR = testing
+TEST_ARCHIVE = $(TEST_DIR)/test.tar.gz
 TEST_SCRIPT = test.sh
 
 # I strongly encourage adding more tests
@@ -82,17 +85,21 @@ define my_tests =
 	make
 	make backup
 	cat $(README)
+	./$(COMPILED) | tee output1
+	./$(COMPILED) wrong number of args | tee output1
+	./$(COMPILED) right number | tee output1
+	make clean
 endef
 
 clean:
-	rm -rf testing
+	rm -rf $(TEST_DIR)
 	rm -f $(COMPILED) *.out *.o *.class
 
 # add more files on next line for them to be added automatically to archive
-$(ARCHIVE): archives $(MAKEFILE) $(README) $(SOURCE)
+$(ARCHIVE): $(ARCHIVE_DIR) $(MAKEFILE) $(README) $(SOURCE)
 	@:$(call fail_if_not_defined,ARCHIVE MAKEFILE README SOURCE, \
 		Files starting with readme will be added automatically)
-	tar -cvzf $(ARCHIVE) $(filter-out archives ,$^)
+	tar -cvzf $(ARCHIVE) $(filter-out $(ARCHIVE_DIR) ,$^)
 
 ###################### ARE YOU SURE YOU WANT TO EDIT ? ########################
 
@@ -144,24 +151,21 @@ ifneq ($(strip $^),)
 endif
 
 # Directories
-# TODO: should be variables
-archives:
-	mkdir archives
+$(ARCHIVE_DIR):
+	mkdir $(ARCHIVE_DIR)
 
-testing:
-	mkdir testing
+$(TEST_DIR):
+	mkdir $(TEST_DIR)
 
 # overwrites existing test archive
-$(TEST_ARCHIVE): $(ARCHIVE) testing
+$(TEST_ARCHIVE): $(ARCHIVE) $(TEST_DIR)
 	ln -f $(ARCHIVE) $(TEST_ARCHIVE)
 
-$(TEST_SCRIPT): testing
-	echo 'cd testing' > $(TEST_SCRIPT)
+$(TEST_SCRIPT): $(TEST_DIR)
+	echo 'cd $(TEST_DIR)' > $(TEST_SCRIPT)
 	echo 'tar -xvzf $(TEST_ARCHIVE)' >> $(TEST_SCRIPT)
 	# this makes $(TEST_SCRIPT) look strange, I'll take ideas for making it nicer
 	echo $(my_tests) | tr '\n' ';' >> $(TEST_SCRIPT)
-	./$(COMPILED) | tee output1
-	echo "make clean" >> $(TEST_SCRIPT)
 	chmod u+x $(TEST_SCRIPT)
 
 
@@ -170,7 +174,7 @@ archive: $(ARCHIVE)
 backup: $(ARCHIVE)
 
 clobber: clean
-	rm -rf archives
+	rm -rf $(ARCHIVE_DIR)
 
 over: clean all
 
