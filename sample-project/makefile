@@ -10,7 +10,7 @@
 
 # ADD THIS FIRST
 # program name here (requires proper capitalization)
-PROGRAM := hello-world
+PROGRAM = hello-world
 
 #### Note before further modification: ####
 
@@ -58,10 +58,6 @@ define NAMED_TASKS =
 backup clean clobber over all run test assembly clean_run
 endef
 
-tasks:
-	@printf "self_check "
-	@echo $(NAMED_TASKS)
-
 all: $(COMPILED)
 	@:$(call fail_if_not_defined,COMPILED)
 
@@ -70,14 +66,14 @@ all: $(COMPILED)
 .DEFAULT_GOAL := tasks
 
 # If you add named goals, add them here to avoid naming conflicts
-.PHONY: clean clobber backup tasks over all \
-	test archive assembly run clean_run self_check
+.PHONY: clean clobber backup tasks over all check test archive assembly run clean_run self_check \
+	_self_check_start _assert_all_variables _emergency_backup _do_all_tasks
 
 # Files that will be used later; feel free to change these
 # Note, your test directory should NOT be the same as your current directory,
 # as this will overwrite your existing files
 
-ARCHIVE_DIR := archives
+ARCHIVE_DIR = archives
 # := means evaluate immediately instead of lazily
 ARCHIVE := $(ARCHIVE_DIR)/$(PROGRAM)-$(shell date -I).tar.gz
 
@@ -87,18 +83,18 @@ TEST_SCRIPT = test.sh
 
 # I strongly encourage adding more tests
 define my_tests =
-	make all
+	make $(COMPILED)
 	make backup
 	cat $(README)
-	./$(COMPILED) | tee output1
-	./$(COMPILED) wrong number of args | tee output1
-	./$(COMPILED) right number | tee output1
+	$(srcdir)/$(COMPILED) | tee output1
+	$(srcdir)/$(COMPILED) wrong number of args | tee output1
+	$(srcdir)/$(COMPILED) right number | tee output1
 	make clean
 endef
 
 clean:
 	rm -rf $(TEST_DIR)
-	rm -f $(COMPILED) *.out *.o *.class *.s $(TEST_SCRIPT)
+	rm -f $(COMPILED) *.out *.o *.s *.class $(TEST_SCRIPT)
 
 ###################### ARE YOU SURE YOU WANT TO EDIT ? ########################
 
@@ -107,14 +103,17 @@ clean:
 # or email me at 'jyn514 AT gmail DOT com'
 
 # Makefile specific
+# https://www.gnu.org/software/make/manual/html_node/Makefile-Conventions.html
 SHELL = sh
 export MAKEFLAGS += --warn-undefined-variables -S
+.SUFFIXES:
+.SUFFIXES: .c .o .cpp .java .class
 # get current makefile
 # assumes current dir has no spaces in name (if false, rethink your choices)
 MAKEFILE := $(lastword $(MAKEFILE_LIST))
 
 # Compilers and flags
-CC = g++ -g -Wall -Wpedantic -Wextra
+CC = g++ -g -Wall -Wpedantic -Wextra -O2
 JAVAC != which javac
 # note: if using the (deprecated) gcj, these flags are invalid.
 JAVAC += -g -Xlint:all -source 1.8 -target 1.8
@@ -126,29 +125,24 @@ ifneq ($(shell find -maxdepth 1 -iname 'readme*' | wc -l), 0)
 endif
 
 # add more files on next line for them to be added automatically to archive
-# Note: This MUST come after MAKEFILE and README are defined
+# Note: this MUST come after ARCHIVE, MAKEFILE, and README are defined
+# TODO: make this compatible with BSD make
+
 $(ARCHIVE): $(ARCHIVE_DIR) $(MAKEFILE) $(README) $(SOURCE)
 	@:$(call fail_if_not_defined,ARCHIVE MAKEFILE README SOURCE, \
 		Files starting with README will be added automatically)
 	tar -cvzf $(ARCHIVE) \
-		$(filter-out $(ARCHIVE_DIR),$^)
+		$(filter-out $(ARCHIVE_DIR) ,$^)
 
 # Takes 2 params: variable(s) which must exist, seperated by spaces (required); and description (optional)
 # https://stackoverflow.com/questions/10858261
-define fail_if_not_defined =
-        $(strip $(foreach arg,$1,
-                $(call check_single_var_defined,$(arg),$(strip $(value 2)))))
-endef
+fail_if_not_defined = \
+    $(strip $(foreach arg,$1, \
+        $(call __check_single_var_defined,$(arg),$(strip $(value 2)))))
 
-define check_single_var_defined =
-        $(if $(value $1),,
-                $(error $1 undefined$(if $2,. Comment: $2)))
-endef
-
-define newline =
-
-
-endef
+__check_single_var_defined = \
+    $(if $(value $1),, \
+      $(error $1 undefined$(if $2,. Comment: $2)))
 
 # pattern matching: java
 $(filter .class,$(COMPILED)): %.class: %.java
@@ -173,12 +167,17 @@ $(TEST_DIR):
 $(TEST_ARCHIVE): $(ARCHIVE) $(TEST_DIR)
 	ln -f $(ARCHIVE) $(TEST_ARCHIVE)
 
+define newline =
+
+
+endef
+
 $(TEST_SCRIPT): $(TEST_DIR)
 	echo '#!/bin/sh' > $(TEST_SCRIPT)
 	echo 'set -ev' >> $(TEST_SCRIPT)
-	echo 'tar -C $(TEST_DIR) -xvzf $(TEST_ARCHIVE)' >> $(TEST_SCRIPT)
+	echo 'tar -C $(TEST_DIR) -xvzf $(TEST_ARCHIVE)' >> $
 	echo 'cd $(TEST_DIR)' >> $(TEST_SCRIPT)
-	printf '$(subst $(newline),\n,$(my_tests))' >> $(TEST_SCRIPT)
+	printf '$(subst $(newline),\n,$(my_tests))\n' >> $(TEST_SCRIPT)
 	chmod u+x $(TEST_SCRIPT)
 
 
@@ -193,7 +192,19 @@ over: clean all
 
 run: $(COMPILED)
 	@:$(call fail_if_not_defined,COMPILED)
-	./$(COMPILED)
+	$(srcdir)/$(COMPILED)
+
+
+test: clean $(TEST_ARCHIVE) $(TEST_SCRIPT)
+	$(srcdir)/$(TEST_SCRIPT)
+	@echo Success!
+
+# self_check is named seperately so that _do_all_tasks doesn't start an infinite loop
+tasks:
+	@printf "tasks: self_check "
+	@echo $(NAMED_TASKS)
+
+check: test
 
 clean_run: clean run
 
@@ -201,7 +212,6 @@ self_check: _do_all_tasks clean
 	tar -xvzf emergency_backup.tar
 	rm emergency_backup.tar
 	echo All good!
-
 
 _self_check_start:
 	@printf "Running test of $(MAKEFILE)...\n\n"
@@ -224,8 +234,3 @@ _do_all_tasks: _emergency_backup
 		$(MAKE) -f $(MAKEFILE) $$task; \
 		printf "Succeeded.\n\n"; \
 	done
-
-test: clean $(TEST_ARCHIVE) $(TEST_SCRIPT)
-	./$(TEST_SCRIPT)
-
-check: test
