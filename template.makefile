@@ -59,6 +59,7 @@ tasks:
 		     run test assembly clean_run self_check
 
 all: $(COMPILED)
+	@:$(call fail_if_not_defined,COMPILED)
 
 # Change this to a goal to have it run when make is called without arguments
 # You will likely want it to be $(COMPILED) or all
