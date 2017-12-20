@@ -83,7 +83,7 @@ TEST_SCRIPT = test.sh
 
 # I strongly encourage adding more tests
 define my_tests =
-	make
+	make $(COMPILED)
 	make backup
 	cat $(README)
 	./$(COMPILED) | tee output1
@@ -94,7 +94,7 @@ endef
 
 clean:
 	rm -rf $(TEST_DIR)
-	rm -f $(COMPILED) *.out *.o *.class
+	rm -f $(COMPILED) *.out *.o *.class $(TEST_SCRIPT)
 
 ###################### ARE YOU SURE YOU WANT TO EDIT ? ########################
 
@@ -164,11 +164,18 @@ $(TEST_DIR):
 $(TEST_ARCHIVE): $(ARCHIVE) $(TEST_DIR)
 	ln -f $(ARCHIVE) $(TEST_ARCHIVE)
 
+define newline =
+
+
+endef
+
 $(TEST_SCRIPT): $(TEST_DIR)
-	echo 'cd $(TEST_DIR)' > $(TEST_SCRIPT)
-	echo 'tar -xvzf $(TEST_ARCHIVE)' >> $(TEST_SCRIPT)
+	echo '#!/bin/sh' > $(TEST_SCRIPT)
+	echo 'set -ev' >> $(TEST_SCRIPT)
+	echo 'tar -C $(TEST_DIR) -xvzf $(TEST_ARCHIVE)' >> $
+	echo 'cd $(TEST_DIR)' >> $(TEST_SCRIPT)
 	# this makes $(TEST_SCRIPT) look strange, I'll take ideas for making it nicer
-	echo $(my_tests) | tr '\n' ';' >> $(TEST_SCRIPT)
+	printf '$(subst $(newline),\n,$(my_tests))\n' >> $(TEST_SCRIPT)
 	chmod u+x $(TEST_SCRIPT)
 
 
@@ -195,5 +202,6 @@ self_check:
 
 test: clean $(TEST_ARCHIVE) $(TEST_SCRIPT)
 	./$(TEST_SCRIPT)
+	@echo Success!
 
 check: test
