@@ -122,7 +122,7 @@ JAVAC += -g -Xlint:all -source 1.8 -target 1.8
 
 # ignore case, undefined if nothing exists
 # https://unix.stackexchange.com/questions/198254
-ifeq ($(shell find -maxdepth 1 -iname readme | wc -l), 0)
+ifeq ($(shell find -maxdepth 1 -iname 'readme*' | wc -l), 0)
 	README =
 else
 	README != find -maxdepth 1 -iname 'readme*'
