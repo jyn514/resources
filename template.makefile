@@ -58,10 +58,6 @@ define NAMED_TASKS =
 backup clean clobber over all run test assembly clean_run
 endef
 
-tasks:
-	@printf self_check
-	@echo $(NAMED_TASKS)
-
 all: $(COMPILED)
 	@:$(call fail_if_not_defined,COMPILED)
 
@@ -70,7 +66,7 @@ all: $(COMPILED)
 .DEFAULT_GOAL := tasks
 
 # If you add named goals, add them here to avoid naming conflicts
-.PHONY: clean clobber backup tasks over all test archive assembly run clean_run self_check \
+.PHONY: clean clobber backup tasks over all check test archive assembly run clean_run self_check \
 	_self_check_start _assert_all_variables _emergency_backup _do_all_tasks
 
 # Files that will be used later; feel free to change these
@@ -107,14 +103,17 @@ clean:
 # or email me at 'jyn514 AT gmail DOT com'
 
 # Makefile specific
+# https://www.gnu.org/software/make/manual/html_node/Makefile-Conventions.html
 SHELL = sh
 export MAKEFLAGS += --warn-undefined-variables -S
+.SUFFIXES:
+.SUFFIXES: .c .o .cpp .java .class
 # get current makefile
 # assumes current dir has no spaces in name (if false, rethink your choices)
 MAKEFILE := $(lastword $(MAKEFILE_LIST))
 
 # Compilers and flags
-CC = g++ -g -Wall -Wpedantic -Wextra
+CC = g++ -g -Wall -Wpedantic -Wextra -O2
 JAVAC != which javac
 # note: if using the (deprecated) gcj, these flags are invalid.
 JAVAC += -g -Xlint:all -source 1.8 -target 1.8
@@ -178,7 +177,6 @@ $(TEST_SCRIPT): $(TEST_DIR)
 	echo 'set -ev' >> $(TEST_SCRIPT)
 	echo 'tar -C $(TEST_DIR) -xvzf $(TEST_ARCHIVE)' >> $
 	echo 'cd $(TEST_DIR)' >> $(TEST_SCRIPT)
-	# this makes $(TEST_SCRIPT) look strange, I'll take ideas for making it nicer
 	printf '$(subst $(newline),\n,$(my_tests))\n' >> $(TEST_SCRIPT)
 	chmod u+x $(TEST_SCRIPT)
 
@@ -196,13 +194,24 @@ run: $(COMPILED)
 	@:$(call fail_if_not_defined,COMPILED)
 	./$(COMPILED)
 
+
+test: clean $(TEST_ARCHIVE) $(TEST_SCRIPT)
+	$(srcdir)/$(TEST_SCRIPT)
+	@echo Success!
+
+# self_check is named seperately so that _do_all_tasks doesn't start an infinite loop
+tasks:
+	@printf "tasks: self_check "
+	@echo $(NAMED_TASKS)
+
+check: test
+
 clean_run: clean run
 
 self_check: _do_all_tasks clean
 	tar -xvzf emergency_backup.tar
 	rm emergency_backup.tar
 	echo All good!
-
 
 _self_check_start:
 	@printf "Running test of $(MAKEFILE)...\n\n"
@@ -225,9 +234,3 @@ _do_all_tasks: _emergency_backup
 		$(MAKE) -f $(MAKEFILE) $$task; \
 		printf "Succeeded.\n\n"; \
 	done
-
-test: clean $(TEST_ARCHIVE) $(TEST_SCRIPT)
-	./$(TEST_SCRIPT)
-	@echo Success!
-
-check: test
