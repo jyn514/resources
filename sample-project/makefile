@@ -10,7 +10,7 @@
 
 # ADD THIS FIRST
 # program name here (requires proper capitalization)
-PROGRAM = didnt-change-makefile
+PROGRAM := hello-world
 
 #### Note before further modification: ####
 
@@ -25,18 +25,18 @@ PROGRAM = didnt-change-makefile
 
 #### If working with C++ #################
 
-#SOURCE = $(PROGRAM).cpp
-#COMPILED = $(PROGRAM)
+SOURCE = $(PROGRAM).cpp
+COMPILED = $(PROGRAM)
 
-#$(COMPILED): $(SOURCE)
-#	@:$(call fail_if_not_defined, SOURCE)
-#	$(CC) -o $(COMPILED) $(SOURCE)
+$(COMPILED): $(SOURCE)
+	@:$(call fail_if_not_defined, SOURCE)
+	$(CC) -o $(COMPILED) $(SOURCE)
 
-#$(PROGRAM).s: $(SOURCE)
-#	@:$(call fail_if_not_defined, SOURCE)
-#	$(CC) -S $(SOURCE)
+$(PROGRAM).s: $(SOURCE)
+	@:$(call fail_if_not_defined, SOURCE)
+	$(CC) -S $(SOURCE)
 
-#assembly: $(PROGRAM).s
+assembly: $(PROGRAM).s
 
 
 #### If working with Java ################
@@ -59,7 +59,7 @@ backup clean clobber over all run test assembly clean_run
 endef
 
 tasks:
-	@printf self_check
+	@printf "self_check "
 	@echo $(NAMED_TASKS)
 
 all: $(COMPILED)
@@ -70,14 +70,14 @@ all: $(COMPILED)
 .DEFAULT_GOAL := tasks
 
 # If you add named goals, add them here to avoid naming conflicts
-.PHONY: clean clobber backup tasks over all test archive assembly run clean_run self_check \
-	_self_check_start _assert_all_variables _emergency_backup _do_all_tasks
+.PHONY: clean clobber backup tasks over all \
+	test archive assembly run clean_run self_check
 
 # Files that will be used later; feel free to change these
 # Note, your test directory should NOT be the same as your current directory,
 # as this will overwrite your existing files
 
-ARCHIVE_DIR = archives
+ARCHIVE_DIR := archives
 # := means evaluate immediately instead of lazily
 ARCHIVE := $(ARCHIVE_DIR)/$(PROGRAM)-$(shell date -I).tar.gz
 
@@ -87,7 +87,7 @@ TEST_SCRIPT = test.sh
 
 # I strongly encourage adding more tests
 define my_tests =
-	make $(COMPILED)
+	make all
 	make backup
 	cat $(README)
 	./$(COMPILED) | tee output1
@@ -98,7 +98,7 @@ endef
 
 clean:
 	rm -rf $(TEST_DIR)
-	rm -f $(COMPILED) *.out *.o *.s *.class $(TEST_SCRIPT)
+	rm -f $(COMPILED) *.out *.o *.class *.s $(TEST_SCRIPT)
 
 ###################### ARE YOU SURE YOU WANT TO EDIT ? ########################
 
@@ -126,24 +126,29 @@ ifneq ($(shell find -maxdepth 1 -iname 'readme*' | wc -l), 0)
 endif
 
 # add more files on next line for them to be added automatically to archive
-# Note: this MUST come after ARCHIVE, MAKEFILE, and README are defined
-# TODO: make this compatible with BSD make
-
+# Note: This MUST come after MAKEFILE and README are defined
 $(ARCHIVE): $(ARCHIVE_DIR) $(MAKEFILE) $(README) $(SOURCE)
 	@:$(call fail_if_not_defined,ARCHIVE MAKEFILE README SOURCE, \
 		Files starting with README will be added automatically)
 	tar -cvzf $(ARCHIVE) \
-		$(filter-out $(ARCHIVE_DIR) ,$^)
+		$(filter-out $(ARCHIVE_DIR),$^)
 
 # Takes 2 params: variable(s) which must exist, seperated by spaces (required); and description (optional)
 # https://stackoverflow.com/questions/10858261
-fail_if_not_defined = \
-    $(strip $(foreach arg,$1, \
-        $(call __check_single_var_defined,$(arg),$(strip $(value 2)))))
+define fail_if_not_defined =
+        $(strip $(foreach arg,$1,
+                $(call check_single_var_defined,$(arg),$(strip $(value 2)))))
+endef
 
-__check_single_var_defined = \
-    $(if $(value $1),, \
-      $(error $1 undefined$(if $2,. Comment: $2)))
+define check_single_var_defined =
+        $(if $(value $1),,
+                $(error $1 undefined$(if $2,. Comment: $2)))
+endef
+
+define newline =
+
+
+endef
 
 # pattern matching: java
 $(filter .class,$(COMPILED)): %.class: %.java
@@ -168,18 +173,12 @@ $(TEST_DIR):
 $(TEST_ARCHIVE): $(ARCHIVE) $(TEST_DIR)
 	ln -f $(ARCHIVE) $(TEST_ARCHIVE)
 
-define newline =
-
-
-endef
-
 $(TEST_SCRIPT): $(TEST_DIR)
 	echo '#!/bin/sh' > $(TEST_SCRIPT)
 	echo 'set -ev' >> $(TEST_SCRIPT)
-	echo 'tar -C $(TEST_DIR) -xvzf $(TEST_ARCHIVE)' >> $
+	echo 'tar -C $(TEST_DIR) -xvzf $(TEST_ARCHIVE)' >> $(TEST_SCRIPT)
 	echo 'cd $(TEST_DIR)' >> $(TEST_SCRIPT)
-	# this makes $(TEST_SCRIPT) look strange, I'll take ideas for making it nicer
-	printf '$(subst $(newline),\n,$(my_tests))\n' >> $(TEST_SCRIPT)
+	printf '$(subst $(newline),\n,$(my_tests))' >> $(TEST_SCRIPT)
 	chmod u+x $(TEST_SCRIPT)
 
 
@@ -228,6 +227,5 @@ _do_all_tasks: _emergency_backup
 
 test: clean $(TEST_ARCHIVE) $(TEST_SCRIPT)
 	./$(TEST_SCRIPT)
-	@echo Success!
 
 check: test
