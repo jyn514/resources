@@ -115,7 +115,7 @@ export MAKEFLAGS += --warn-undefined-variables -S
 MAKEFILE := $(lastword $(MAKEFILE_LIST))
 
 # Compilers and flags
-CC = g++ -g -Wall -Wpedantic
+CC = g++ -g -Wall -Wpedantic -Wextra
 JAVAC != which javac
 # note: if using the (deprecated) gcj, these flags are invalid.
 JAVAC += -g -Xlint:all -source 1.8 -target 1.8
