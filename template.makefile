@@ -180,6 +180,7 @@ clobber: clean
 over: clean all
 
 run: $(COMPILED)
+	@:$(call fail_if_not_defined,COMPILED)
 	./$(COMPILED)
 
 clean_run: clean run
