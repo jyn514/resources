@@ -75,7 +75,7 @@ all: $(COMPILED)
 
 ARCHIVE_DIR = archives
 # := means evaluate immediately instead of lazily
-ARCHIVE := $(ARCHIVE_DIR)/$(PROGRAM)-`date -I`.tar.gz
+ARCHIVE := $(ARCHIVE_DIR)/$(PROGRAM)-$(shell date -I).tar.gz
 
 TEST_DIR = testing
 TEST_ARCHIVE = $(TEST_DIR)/test.tar.gz
@@ -95,12 +95,6 @@ endef
 clean:
 	rm -rf $(TEST_DIR)
 	rm -f $(COMPILED) *.out *.o *.class
-
-# add more files on next line for them to be added automatically to archive
-$(ARCHIVE): $(ARCHIVE_DIR) $(MAKEFILE) $(README) $(SOURCE)
-	@:$(call fail_if_not_defined,ARCHIVE MAKEFILE README SOURCE, \
-		Files starting with readme will be added automatically)
-	tar -cvzf $(ARCHIVE) $(filter-out $(ARCHIVE_DIR) ,$^)
 
 ###################### ARE YOU SURE YOU WANT TO EDIT ? ########################
 
@@ -123,11 +117,19 @@ JAVAC += -g -Xlint:all -source 1.8 -target 1.8
 
 # ignore case, undefined if nothing exists
 # https://unix.stackexchange.com/questions/198254
-ifeq ($(shell find -maxdepth 1 -iname 'readme*' | wc -l), 0)
-	README =
-else
+ifneq ($(shell find -maxdepth 1 -iname 'readme*' | wc -l), 0)
 	README != find -maxdepth 1 -iname 'readme*'
 endif
+
+# add more files on next line for them to be added automatically to archive
+# Note: this MUST come after ARCHIVE, MAKEFILE, and README are defined
+# TODO: make this compatible with BSD make
+
+$(ARCHIVE): $(ARCHIVE_DIR) $(MAKEFILE) $(README) $(SOURCE)
+	@:$(call fail_if_not_defined,ARCHIVE MAKEFILE README SOURCE, \
+		Files starting with README will be added automatically)
+	tar -cvzf $(ARCHIVE) \
+		$(filter-out $(ARCHIVE_DIR) ,$^)
 
 # Takes 2 params: variable(s) which must exist, seperated by spaces (required); and description (optional)
 # https://stackoverflow.com/questions/10858261
