@@ -207,7 +207,7 @@ clean_run: clean run
 self_check: _do_all_tasks clean
 	tar -xvzf emergency_backup.tar
 	rm emergency_backup.tar
-	echo All good!
+	@echo All good!
 
 _self_check_start:
 	@printf "Running test of $(MAKEFILE)...\n\n"
@@ -220,7 +220,7 @@ _assert_all_variables: _self_check_start
 
 _emergency_backup: _assert_all_variables
 	@echo "Backing up existing files..."
-	touch emergency_backup.tar
+	@touch emergency_backup.tar
 	tar -czvf emergency_backup.tar .
 	@printf "Succeeded.\n\n"
 
