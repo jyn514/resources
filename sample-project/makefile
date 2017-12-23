@@ -146,15 +146,11 @@ __check_single_var_defined = \
 
 # pattern matching: java
 $(filter .class,$(COMPILED)): %.class: %.java
-ifneq ($(strip $^),)
 	$(JAVAC) $<
-endif
 
 # pattern matching: all .o files require corresponding .c or .cpp files
 $(filter .o,$(COMPILED)): %.o: %.cpp
-ifneq ($(strip $^),)
 	$(CC) -c $^ -o $@
-endif
 
 # Directories
 $(ARCHIVE_DIR):
