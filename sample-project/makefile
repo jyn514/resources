@@ -214,11 +214,11 @@ _self_check_start:
 
 _assert_all_variables: _self_check_start
 	@printf "Asserting variables exist... "
-	@:$(call fail_if_not_defined,ARCHIVE ARCHIVE_DIR CC COMPILED JAVAC \
-	MAKEFILE MAKEFLAGS MAKEFILE_LIST PROGRAM SHELL SOURCE TEST_ARCHIVE TEST_DIR TEST_SCRIPT)
+	@:$(call fail_if_not_defined,ARCHIVE ARCHIVE_DIR CC COMPILED JAVAC MAKEFILE MAKEFLAGS \
+	 MAKEFILE_LIST PROGRAM README SHELL SOURCE TEST_ARCHIVE TEST_DIR TEST_SCRIPT)
 	@echo Succeeded.
 
-_emergency_backup: _assert_all_variables
+_emergency_backup: _assert_all_variables $(MAKEFILE) $(SOURCE) $(README)
 	@echo "Backing up existing files..."
 	@touch emergency_backup.tar
 	tar -czvf emergency_backup.tar .
@@ -227,6 +227,6 @@ _emergency_backup: _assert_all_variables
 _do_all_tasks: _emergency_backup
 	for task in $(NAMED_TASKS); do \
 		echo Executing task $$task ...; \
-		$(MAKE) -f $(MAKEFILE) $$task; \
-		printf "Succeeded.\n\n"; \
+		$(MAKE) -f $(MAKEFILE) $$task && printf "Succeeded.\n\n" \
+		|| printf "FAILED: see above\n\n"; \
 	done
