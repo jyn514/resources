@@ -86,9 +86,9 @@ define my_tests =
 	make $(COMPILED)
 	make backup
 	cat $(README)
-	$(srcdir)/$(COMPILED) | tee output1
-	$(srcdir)/$(COMPILED) wrong number of args | tee output1
-	$(srcdir)/$(COMPILED) right number | tee output1
+	./$(COMPILED) | tee output1
+	./$(COMPILED) wrong number of args | tee output1
+	./$(COMPILED) right number | tee output1
 	make clean
 endef
 
@@ -188,11 +188,11 @@ over: clean all
 
 run: $(COMPILED)
 	@:$(call fail_if_not_defined,COMPILED)
-	$(srcdir)/$(COMPILED)
+	./$(COMPILED)
 
 
 test: clean $(TEST_ARCHIVE) $(TEST_SCRIPT)
-	$(srcdir)/$(TEST_SCRIPT)
+	./$(TEST_SCRIPT)
 	@echo Success!
 
 # self_check is named seperately so that _do_all_tasks doesn't start an infinite loop
