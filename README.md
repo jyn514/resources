@@ -13,22 +13,13 @@ These programs were made by Professor
 [Duncan Buell](https://cse.sc.edu/duncanbuell), who
 teaches an introductory C++ course at the University of
 South Carolina. He also teaches Introduction to Cryptography,
-and researches [electronic voting systems](http://www.cse.sc.edu/~buell/Public_Data/evoting.html).
+and researches [electronic voting systems](https://www.cse.sc.edu/~buell/Public_Data/evoting.html).
 
-### Pokeefe
+### 215-resources
 Instructor [Pat O'Keefe](https://cse.sc.edu/~pokeefe/unix-linux/)
-teaches an introductory Unix/Linux course at the University of
+teaches CSCE 215, an introductory Unix/Linux course at the University of
 South Carolina. I have the pleasure of being his teaching assistant
 for the 2018 Spring semester.
-
-### Unix cookbook
-A mirror of Mr. Eric Raymond's [collection](http://www.catb.org/~esr/cookbook/)
-
-### Unixtut
-A mirror of Mr. O'Keefe's 
-[tutorial](https://cse.sc.edu/~pokeefe/tutorials/unixtut/),
-which is itself a mirror of Mr. Surray's excellent 
-[site](http://www.ee.surrey.ac.uk/Teaching/Unix/)
 
 ## My works
 
