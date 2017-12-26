@@ -146,15 +146,11 @@ __check_single_var_defined = \
 
 # pattern matching: java
 $(filter .class,$(COMPILED)): %.class: %.java
-ifneq ($(strip $^),)
 	$(JAVAC) $<
-endif
 
 # pattern matching: all .o files require corresponding .c or .cpp files
 $(filter .o,$(COMPILED)): %.o: %.cpp
-ifneq ($(strip $^),)
 	$(CC) -c $^ -o $@
-endif
 
 # Directories
 $(ARCHIVE_DIR):
@@ -175,7 +171,7 @@ endef
 $(TEST_SCRIPT): $(TEST_DIR)
 	echo '#!/bin/sh' > $(TEST_SCRIPT)
 	echo 'set -ev' >> $(TEST_SCRIPT)
-	echo 'tar -C $(TEST_DIR) -xvzf $(TEST_ARCHIVE)' >> $
+	echo 'tar -C $(TEST_DIR) -xvzf $(TEST_ARCHIVE)' >> $(TEST_SCRIPT)
 	echo 'cd $(TEST_DIR)' >> $(TEST_SCRIPT)
 	printf '$(subst $(newline),\n,$(my_tests))\n' >> $(TEST_SCRIPT)
 	chmod u+x $(TEST_SCRIPT)
@@ -196,7 +192,7 @@ run: $(COMPILED)
 
 
 test: clean $(TEST_ARCHIVE) $(TEST_SCRIPT)
-	$(srcdir)/$(TEST_SCRIPT)
+	./$(TEST_SCRIPT)
 	@echo Success!
 
 # self_check is named seperately so that _do_all_tasks doesn't start an infinite loop
@@ -211,26 +207,34 @@ clean_run: clean run
 self_check: _do_all_tasks clean
 	tar -xvzf emergency_backup.tar
 	rm emergency_backup.tar
-	echo All good!
+	@echo All good!
 
 _self_check_start:
-	@printf "Running test of $(MAKEFILE)...\n\n"
+	@echo "Running test of $(MAKEFILE)..."
+	@echo
 
 _assert_all_variables: _self_check_start
 	@printf "Asserting variables exist... "
 	@:$(call fail_if_not_defined,ARCHIVE ARCHIVE_DIR CC COMPILED JAVAC \
-	MAKEFILE MAKEFLAGS MAKEFILE_LIST PROGRAM SHELL SOURCE TEST_ARCHIVE TEST_DIR TEST_SCRIPT)
+	MAKEFILE MAKEFLAGS MAKEFILE_LIST PROGRAM README SHELL SOURCE \
+	TEST_ARCHIVE TEST_DIR TEST_SCRIPT)
 	@echo Succeeded.
 
-_emergency_backup: _assert_all_variables
+_emergency_backup: _assert_all_variables $(MAKEFILE) $(SOURCE) $(README)
+	@echo "WARNING: Full checks modify your directory substantially. \
+	For large projects, it may take several hours. \
+	Type 'y' if you are sure you want to continue [n]:"
+	@read -r CONTINUE; \
+	[ $$CONTINUE ] && ([ $$CONTINUE = "Y" ] || [ $$CONTINUE = "y" ]) || \
+		(echo "Aborting."; exit 1;)
 	@echo "Backing up existing files..."
-	touch emergency_backup.tar
+	@touch emergency_backup.tar
 	tar -czvf emergency_backup.tar .
 	@printf "Succeeded.\n\n"
 
 _do_all_tasks: _emergency_backup
 	for task in $(NAMED_TASKS); do \
 		echo Executing task $$task ...; \
-		$(MAKE) -f $(MAKEFILE) $$task; \
-		printf "Succeeded.\n\n"; \
+		$(MAKE) -f $(MAKEFILE) $$task && printf "Succeeded.\n\n" \
+		|| exit 1; \
 	done
