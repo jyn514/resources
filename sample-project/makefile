@@ -171,7 +171,7 @@ endef
 $(TEST_SCRIPT): $(TEST_DIR)
 	echo '#!/bin/sh' > $(TEST_SCRIPT)
 	echo 'set -ev' >> $(TEST_SCRIPT)
-	echo 'tar -C $(TEST_DIR) -xvzf $(TEST_ARCHIVE)' >> $
+	echo 'tar -C $(TEST_DIR) -xvzf $(TEST_ARCHIVE)' >> $(TEST_SCRIPT)
 	echo 'cd $(TEST_DIR)' >> $(TEST_SCRIPT)
 	printf '$(subst $(newline),\n,$(my_tests))\n' >> $(TEST_SCRIPT)
 	chmod u+x $(TEST_SCRIPT)
@@ -210,7 +210,7 @@ self_check: _do_all_tasks clean
 	@echo All good!
 
 _self_check_start:
-	@printf "Running test of $(MAKEFILE)...\n\n"
+	@echo "Running test of $(MAKEFILE)..."
 
 _assert_all_variables: _self_check_start
 	@printf "Asserting variables exist... "
@@ -219,6 +219,12 @@ _assert_all_variables: _self_check_start
 	@echo Succeeded.
 
 _emergency_backup: _assert_all_variables $(MAKEFILE) $(SOURCE) $(README)
+	@echo "WARNING: Full checks modify your directory substantially. \
+	For large projects, it may take several hours. \
+	Type 'y' if you are sure you want to continue [n]:"
+	@read -r CONTINUE; \
+	[ $$CONTINUE ] && ([ $$CONTINUE = "Y" ] || [ $$CONTINUE = "y" ]) || \
+		(echo "Aborting."; exit 1;)
 	@echo "Backing up existing files..."
 	@touch emergency_backup.tar
 	tar -czvf emergency_backup.tar .
@@ -228,5 +234,5 @@ _do_all_tasks: _emergency_backup
 	for task in $(NAMED_TASKS); do \
 		echo Executing task $$task ...; \
 		$(MAKE) -f $(MAKEFILE) $$task && printf "Succeeded.\n\n" \
-		|| printf "FAILED: see above\n\n"; \
+		|| exit 1; \
 	done
