@@ -1,0 +1,109 @@
+###########
+Known:
+- Java
+- Python
+- HTML
+- git
+- make
+- bash
+- markdown
+- tar
+- gzip/bzip2
+- wget/curl
+- man/info
+- jekyll
+- travis/travis-ci
+###########
+
+C++
+- gdb
+
+Editor: one of
+- vim
+- emacs
+
+Javascript
+- grunt, uglify, etc.
+- node
+- framework: one of
+    * react
+    * angular
+    * typescript
+    * jquery
+
+Functional: one of
+- Haskell
+- Lisp: one of
+    * Common lisp
+    * Clojure
+    * Scheme
+    * ML
+- Scala
+- OCaml
+- Erlang
+- F#
+
+Networks:
+- nmap
+- firewalls
+- ip/ipconfig
+- ping
+
+Concise: one of
+- Ruby
+- Kotlin
+- APL
+
+SQL: one of
+- MySQL
+- PostgreSQL
+- MariaDB
+
+Testing: as necessary
+- py.test
+- nosetests
+- bats
+- jest
+- junit
+
+Documentation: as necessary
+- javadoc
+- perldoc
+- sphinx
+- pandoc
+- haddock
+
+Optional:
+- Perl
+- Rust
+- C#, .NET
+- Android
+- Powershell
+- Statistical languages: one of
+    * R
+    * Matlab (non-free)
+- Lua
+- Go
+- LaTex
+- Webserver: one of
+    * Apache
+    * Nginx
+    * Tomcat
+- Prolog
+- Wolfram Language
+
+Not necessary:
+Julia
+Pascal
+BASIC
+Fortran
+COBOL
+Assembly
+Smalltalk
+Ada
+C
+ALGOL
+PHP
+more than one of above categories
+esolangs
+old version control
