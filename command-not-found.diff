@@ -1,0 +1,17 @@
+--- ./CommandNotFound.py        2013-05-08 23:34:03.372359619 +0930
++++ /usr/share/command-not-found/CommandNotFound/CommandNotFound.py     2013-05-08 23:34:46.640272545 +0930
+@@ -89,10 +89,8 @@
+         if not self.programs:
+             print _("Could not find the database of available applications, "
+                     "run update-command-not-found as root to fix this")
+-        try:
+-            self.user_can_sudo = grp.getgrnam("admin")[2] in posix.getgroups()
+-        except KeyError:
+-            self.user_can_sudo = False
++        self.user_can_sudo = bool(
++		set(grp.getgrgid(i).gr_name for i in posix.getgroups())
++		.intersection(('admin', 'sudo', 'adm')))
++
+
+     def print_spelling_suggestion(self, word, min_len=3, max_len=15):
+         " try to correct the spelling "
