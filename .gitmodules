@@ -6,9 +6,9 @@
 	path = notes
 	url = https://github.com/jyn514/notes
 	branch = master
-[submodule "CSCE-240"]
-	path = CSCE-240
-	url = https://github.com/jyn514/CSCE-240
+[submodule "C-plus-plus"]
+	path = C-plus-plus
+	url = ./C-plus-plus/
 	branch = master
 [submodule "215-resources"]
 	path = 215-resources
