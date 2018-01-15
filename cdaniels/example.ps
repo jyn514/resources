@@ -1,0 +1,325 @@
+%!PS-Adobe-3.0 EPSF-3.0
+%%BoundingBox: 0 0 350 350
+%%%%%%%10%%%%%%%%20%%%%%%%%30%%%%%%%%40%%%%%%%%50%%%%%%%%60%%%%%%%%70%%%%%%%%%80
+% set up constants
+/xcenter 175 def
+/ycenter 175 def
+/unitradius 100 def
+/overshoot 50 def %how far past unit radius to draw axes and such
+/offset 5 def  % small offsets, usually for labels
+/arrowscale 1 def
+/fontsize 8 def
+%%%%%%%10%%%%%%%%20%%%%%%%%30%%%%%%%%40%%%%%%%%50%%%%%%%%60%%%%%%%%70%%%%%%%%%80
+% symbol definitions
+/s_deg (\312) def  % degree symbol, for some reason {\260} dosent seem to work
+%%%%%%%10%%%%%%%%20%%%%%%%%30%%%%%%%%40%%%%%%%%50%%%%%%%%60%%%%%%%%70%%%%%%%%%80
+% font setup
+/Helvetica findfont  % font face
+//fontsize scalefont setfont  % font size
+
+% height of current font, from 
+% http://stackoverflow.com/questions/8296322/how-to-determine-height-and-depth-of-a-postscript-font
+/fontheight currentfont dup /FontBBox get dup 3 get % top
+  exch 1 get sub % top - bottom
+  %␣adjusted␣by␣height␣multiplier/fontsize␣10␣def
+  exch /FontMatrix get 3 get mul def
+%%%%%%%10%%%%%%%%20%%%%%%%%30%%%%%%%%40%%%%%%%%50%%%%%%%%60%%%%%%%%70%%%%%%%%%80
+% arrow head function
+% found here:
+% https://staff.science.uva.nl/a.j.p.heck/Courses/Mastercourse2005/tutorial.pdf
+
+% draws an arrow head along the axis of the most recently drawn line. The
+% first argument is the scale, the followign two are the x and y offsets.
+
+/arrowhead {% stack: s x1 y1, current point: x0 y0 
+gsave
+currentpoint % s x1 y1 x0 y0
+4 2 roll exch % s x0 y0 y1 x1
+4 -1 roll exch % s y0 y1 x0 x1
+sub 3 1 roll % s x1-x2 y0 y1
+sub exch % s y0-y1 x1-x2
+atan rotate % rotate over arctan((y0-y1)/(x1-x2))
+dup scale % scale by factor s
+-7 2 rlineto 1 -2 rlineto -1 -2 rlineto
+closepath fill % fill arrowhead
+grestore
+newpath
+} def
+
+%%%%%%%10%%%%%%%%20%%%%%%%%30%%%%%%%%40%%%%%%%%50%%%%%%%%60%%%%%%%%70%%%%%%%%%80
+
+newpath
+% draw the unit circle
+//xcenter //ycenter //unitradius 0 360 arc
+stroke
+% draw the x and y axes
+0.5 setlinewidth
+//xcenter //ycenter moveto
+
+//xcenter 
+//ycenter //unitradius add //overshoot add 
+lineto  % center to top
+
+//xcenter 
+//ycenter //unitradius sub //overshoot sub 
+lineto  % center to bottom
+
+//xcenter //ycenter moveto  % re-center cursor
+
+//xcenter //unitradius add //overshoot add 
+//ycenter 
+lineto  % center to right
+
+//xcenter //unitradius sub //overshoot sub 
+//ycenter 
+lineto  % center to left
+stroke
+
+
+%%%%%%%10%%%%%%%%20%%%%%%%%30%%%%%%%%40%%%%%%%%50%%%%%%%%60%%%%%%%%70%%%%%%%%%80↲
+% draw labels
+
+newpath
+% move to the right outside of the unit circle, just above the x axis
+//xcenter //unitradius add //offset add 
+//ycenter //offset add 
+moveto
+
+(x) show
+
+% move above the unit circle, just to the right of the y axis
+//xcenter //offset add 
+//ycenter //unitradius add //offset add 
+moveto
+
+(y) show
+
+% draw the 0 deg vector
+% first we draw the arrow head
+newpath
+//xcenter //ycenter translate
+//unitradius //overshoot add 0 moveto
+1 0 0 arrowhead
+0 //xcenter sub 0 //ycenter sub translate
+% now draw the 0 deg label itself
+newpath
+
+//xcenter //unitradius add //offset add 
+//ycenter //fontheight sub 
+moveto  % move to just below the x axis, right of the origin
+
+(0) show //s_deg show 
+
+%%%%%%%10%%%%%%%%20%%%%%%%%30%%%%%%%%40%%%%%%%%50%%%%%%%%60%%%%%%%%70%%%%%%%%%80
+% force table diagram for (13)
+
+%%%%%%%10%%%%%%%%20%%%%%%%%30%%%%%%%%40%%%%%%%%50%%%%%%%%60%%%%%%%%70%%%%%%%%%80
+% 145 deg arc
+newpath
+0 0 1 setrgbcolor  % set color
+
+//xcenter //ycenter  % draw arc around the center
+//unitradius 0.75 mul  % set the radius
+0 60  % set the range in degrees for the first half of the arc
+arc
+
+(145) show //s_deg show  % arc label 
+
+//xcenter //ycenter 
+//unitradius 0.75 mul 
+60 145  % the range in degrees for the second half of the arc
+arc
+
+stroke
+
+% reset color
+0 0 0 setrgbcolor
+%%%%%%%10%%%%%%%%20%%%%%%%%30%%%%%%%%40%%%%%%%%50%%%%%%%%60%%%%%%%%70%%%%%%%%%80
+
+%%%%%%%10%%%%%%%%20%%%%%%%%30%%%%%%%%40%%%%%%%%50%%%%%%%%60%%%%%%%%70%%%%%%%%%80
+% 227 deg arc
+newpath
+0 1 0 setrgbcolor  % set color
+
+//xcenter //ycenter  % draw arc around the center
+//unitradius 0.5 mul  % set the radius
+0 60  % set the range in degrees for the first half of the arc
+arc
+
+(227) show //s_deg show  % arc label 
+
+//xcenter //ycenter
+//unitradius 0.5 mul
+60 227  % the range in degrees for the second half of the arc
+arc
+
+stroke
+
+% reset color
+0 0 0 setrgbcolor
+%%%%%%%10%%%%%%%%20%%%%%%%%30%%%%%%%%40%%%%%%%%50%%%%%%%%60%%%%%%%%70%%%%%%%%%80
+
+%%%%%%%10%%%%%%%%20%%%%%%%%30%%%%%%%%40%%%%%%%%50%%%%%%%%60%%%%%%%%70%%%%%%%%%80
+% 31.4546 deg resultant vector arc
+newpath
+1 0 1 setrgbcolor  % set color
+
+//xcenter //ycenter  % draw arc around the center
+//unitradius 0.25 mul  % set the radius
+0 15  % set the range in degrees for the first half of the arc
+arc
+
+(31.45) show //s_deg show  % arc label 
+
+//xcenter //ycenter
+//unitradius 0.25 mul
+15 31.4546  % the range in degrees for the second half of the arc
+arc
+
+stroke
+
+% reset color
+0 0 0 setrgbcolor
+%%%%%%%10%%%%%%%%20%%%%%%%%30%%%%%%%%40%%%%%%%%50%%%%%%%%60%%%%%%%%70%%%%%%%%%80
+
+
+
+%%%%%%%10%%%%%%%%20%%%%%%%%30%%%%%%%%40%%%%%%%%50%%%%%%%%60%%%%%%%%70%%%%%%%%%80
+% 145 deg vector
+
+% set color
+0 0 1 setrgbcolor
+
+% draw line
+newpath
+//xcenter //ycenter moveto
+-102.394 71.6971  % x and y relative to origin of vector's end
+rlineto
+
+stroke
+
+% used to ensure proper orientation for arrowheads
+//xcenter //ycenter translate
+
+-102.394 71.6971  % x and y relative to origin of vector's end
+moveto  % move back to the end of the vector
+1 0 0 arrowhead  % draw the arrowhead
+stroke
+
+-102.394 71.6971  % x and y relative to origin of vector's end
+moveto  % move back to the end of the vector again so we can draw the label
+
+(0.98N) show  % the actual label
+
+0 0 0 setrgbcolor  % reset color
+% turn translation back off, so 0 0 is the bottom left corner again
+0 //xcenter sub
+0 //ycenter sub
+translate
+%%%%%%%10%%%%%%%%20%%%%%%%%30%%%%%%%%40%%%%%%%%50%%%%%%%%60%%%%%%%%70%%%%%%%%%80
+
+%%%%%%%10%%%%%%%%20%%%%%%%%30%%%%%%%%40%%%%%%%%50%%%%%%%%60%%%%%%%%70%%%%%%%%%80
+% 227 deg vector
+
+% set color
+0 1 0 setrgbcolor
+
+% draw line
+newpath
+//xcenter //ycenter moveto
+
+-85.2498 -91.4192  % x and y relative to origin of vector's end
+rlineto
+stroke
+
+% used to ensure proper orientation for arrowheads
+//xcenter //ycenter translate
+
+-85.2498 -91.4192  % x and y relative to origin of vector's end
+moveto  % move back to the end of the vector
+1 0 0 arrowhead  % draw the arrowhead
+stroke
+
+-85.2498 6 add -91.4192 % x and y relative to origin of vector's end
+moveto  % move back to the end of the vector again so we can draw the label
+
+(0.49N) show  % the actual label
+
+0 0 0 setrgbcolor  % reset color
+% turn translation back off, so 0 0 is the bottom left corner again
+0 //xcenter sub
+0 //ycenter sub
+translate
+%%%%%%%10%%%%%%%%20%%%%%%%%30%%%%%%%%40%%%%%%%%50%%%%%%%%60%%%%%%%%70%%%%%%%%%80
+
+%%%%%%%10%%%%%%%%20%%%%%%%%30%%%%%%%%40%%%%%%%%50%%%%%%%%60%%%%%%%%70%%%%%%%%%80
+% 0 deg vector
+
+% set color
+1 0 0 setrgbcolor
+
+% draw line
+newpath
+//xcenter //ycenter moveto
+
+125 0  % x and y relative to origin of vector's end
+rlineto
+stroke
+
+% used to ensure proper orientation for arrowheads
+//xcenter //ycenter translate
+
+125 0 % x and y relative to origin of vector's end
+moveto  % move back to the end of the vector
+1 0 0 arrowhead  % draw the arrowhead
+stroke
+
+120 5  % x and y relative to origin of vector's end
+moveto  % move back to the end of the vector again so we can draw the label
+
+(1.47N) show  % the actual label
+
+0 0 0 setrgbcolor  % reset color
+% turn translation back off, so 0 0 is the bottom left corner again
+0 //xcenter sub
+0 //ycenter sub
+translate
+%%%%%%%10%%%%%%%%20%%%%%%%%30%%%%%%%%40%%%%%%%%50%%%%%%%%60%%%%%%%%70%%%%%%%%%80
+
+
+
+
+%%%%%%%10%%%%%%%%20%%%%%%%%30%%%%%%%%40%%%%%%%%50%%%%%%%%60%%%%%%%%70%%%%%%%%%80
+% Resultant vector (31deg)
+
+% set color
+1 0 1 setrgbcolor
+
+% draw line
+newpath
+//xcenter //ycenter moveto
+
+63.979 39.1367  % x and y relative to origin of vector's end
+rlineto
+stroke
+
+% used to ensure proper orientation for arrowheads
+//xcenter //ycenter translate
+
+63.979 39.1367 % x and y relative to origin of vector's end
+moveto  % move back to the end of the vector
+1 0 0 arrowhead  % draw the arrowhead
+stroke
+
+63.979 39.1367  % x and y relative to origin of vector's end
+moveto  % move back to the end of the vector again so we can draw the label
+
+(0.39N) show  % the actual label
+
+0 0 0 setrgbcolor  % reset color
+% turn translation back off, so 0 0 is the bottom left corner again
+0 //xcenter sub
+0 //ycenter sub
+translate
+%%%%%%%10%%%%%%%%20%%%%%%%%30%%%%%%%%40%%%%%%%%50%%%%%%%%60%%%%%%%%70%%%%%%%%%80
+
