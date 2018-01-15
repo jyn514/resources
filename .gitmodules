@@ -8,7 +8,7 @@
 	branch = master
 [submodule "C-plus-plus"]
 	path = C-plus-plus
-	url = ./C-plus-plus/
+	url = https://github.com/jyn514/C-plus-plus
 	branch = master
 [submodule "215-resources"]
 	path = 215-resources
