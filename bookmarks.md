@@ -1,3 +1,10 @@
+# New
+- No-longer-condoned-by-MIT
+[lockpicking guide](http://www.capricorn.org/~akira/home/lockpick/chapter8.html)
+- [Privacy tools](https://privacytoolsio.github.io/privacytools.io/)
+- [LOTR Audiobook](https://www.lotro.com/forums/showthread.php?526967%20Lord%20of%20The%20Rings%20Dramatized%20Audio%20Books)
+- [XKCD](https://xkcd.com/)
+
 # Chrome, debian-thinkpad 2018-01-07
 
 ## USC
@@ -26,6 +33,8 @@
 - [Art of Unix Programming](http://catb.org/~esr/writings/taoup/html/)
 - [Apache tomcat](http://www.coreservlets.com/Apache-Tomcat-Tutorial/test-server.html#Start-Server)
 - [JavaScript intro](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Arithmetic_Operators)
+- [Make a Lisp](http://www.buildyourownlisp.com/contents)
+- [C reference](http://www.cs.yale.edu/homes/aspnes/classes/223/notes.html)
 
 ## Misc
 - [Chromium shortcuts](https://support.google.com/chrome/answer/157179?hl=en)
