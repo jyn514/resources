@@ -78,8 +78,7 @@
   [direct link](https://docs.oracle.com/javase/9/docs/api/overview-summary.html)
 - [Bash reference](https://www.gnu.org/software/bash/manual/bash.html#Bash-Features)
 - [Gradle](https://docs.gradle.org/2.14/userguide/gradle_daemon.html)
-- [XP ISO](https://www.microsoft.com/en-us/download/confirmation.aspx?id=18242&cffa64c5-a636-96fc-e97a-0e907fcc4c04=True)
-  (requires license)
+- [XP ISO](https://www.microsoft.com/en-us/download/confirmation.aspx?id=18242) (requires license)
 - [Encyclopaedia Britannica](https://school.eb.com/levels/high/students)
 - [Field Programmable gate array](https://en.wikipedia.org/wiki/Field-programmable_gate_array)
 - [Algorithms](https://web.engr.illinois.edu/~jeffe/teaching/algorithms/)
@@ -92,9 +91,17 @@
 - [C reference](http://www.cs.yale.edu/homes/aspnes/classes/223/notes.html)
 - [Recursive Make Considered Harmful](http://aegis.sourceforge.net/auug97.pdf)
 - [PostFix tutorial](https://help.ubuntu.com/community/PostfixBasicSetupHowto)
+- [How Do It Know](http://www.buthowdoitknow.com/)
+
+### Cybersec
 - [NirSoft](https://nirsoft.net/), Windows freeware
 - [Shodan](https://www.shodan.io/), index of server headers across the internet
-- [How Do It Know](http://www.buthowdoitknow.com/)
+- [Autopsy](https://www.sleuthkit.org/autopsy/)
+- [Netcraft](https://www.netcraft.com/)
+- [Wayback Machine](https://archive.org/)
+- [Find](https://www.gnu.org/software/findutils/manual/html_mono/find.html#Time), search by modification date
+- https://kali.training
+- https://www.colasec.org/scbgblog
 
 ## Games
 - [Vicious Cycles save](https://bloomengine.com/cycles/index.php?id=y8wrzkxJdS5NykzOSXV0dMxE4xcnlqW6J-aCmIaGIMLMEQwMDA0MwQBE5RhCgYGBgRFEzMAAxIEDQyOghAEA)
@@ -107,7 +114,6 @@
 - [Creeper World 3](https://knucklecracker.com/creeperworld3/redownload.php)
 
 ### Cookie clicker
-
 - [Cookie clicker](http://orteil.dashnet.org/cookieclicker/beta)
 - [Frozen cookies][cookies]
 - [Frozen cookies (original)][cookies 2]
