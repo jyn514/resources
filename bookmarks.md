@@ -1,11 +1,25 @@
-# New
+## Unsorted
 - No-longer-condoned-by-MIT
 [lockpicking guide](http://www.capricorn.org/~akira/home/lockpick/chapter8.html)
 - [Privacy tools](https://privacytoolsio.github.io/privacytools.io/)
 - [LOTR Audiobook](https://www.lotro.com/forums/showthread.php?526967%20Lord%20of%20The%20Rings%20Dramatized%20Audio%20Books)
 - [XKCD](https://xkcd.com/)
+- [Short stories](https://qntm.org/structure)
+- [Chromium shortcuts](https://support.google.com/chrome/answer/157179?hl=en)
+- [Command-Not-Found fix](https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=703971)
+- [MENUKEYS](https://ctan.math.ca/tex-archive/macros/latex/contrib/menukeys/menukeys.pdf)
+- [Windows 7](https://microsoft.com/en-us/software-download/windows7)
+  (requires license)
+- [Hillsborough libaries](https://hcplc.org/)
+- [AlternativeTo](https://alternativeto.net/)
+- [KeePassXC autotype](https://github.com/keepassxreboot/keepassxc/wiki/Autotype-Custom-Sequence#keywords)
 
-# Chrome, debian-thinkpad 2018-01-07
+## Blogs
+- [Things of Interest](https://qntm.org/)
+- [The Blog of Charles Daniels](http://cdaniels.net/)
+- [Coding Horror](https://blog.codinghorror.com/), co-founded StackOverFlow
+- https://danluu.com/
+- [Joel On Software](https://www.joelonsoftware.com/), the guy who made StackOverFlow
 
 ## USC
 - [Blackboard](https://blackboard.sc.edu/),
@@ -13,7 +27,15 @@
 - [Degreeworks](https://degreeworks.onecarolina.sc.edu/col/DashboardServlet/dashboard)
 - [CSCE 145](https://cse.sc.edu/~shephejj/csce145/),
   [CSCE 146](https://cse.sc.edu/~shephejj/csce146/)
+- [MATH 241](http://people.math.sc.edu/xfliu/teaching/Spring2018/math241/math241.htm)
+- [LON-CAPA](https://loncapa2.physics.sc.edu/adm/roles)
+- [MyHealthSpace](https://myhealthspace.ushs.sc.edu/login_directory.aspx)
 - [Groupme](https://web.groupme.com/chats)
+
+## Open Source
+- [Jobs](https://www.opensourcejobs.com/)
+- [101](http://opensource101.com/)
+- https://opensource.com/
 
 ## English
 - [Paradise lost](http://www.paradiselost.org/8-Search-All.html)
@@ -21,6 +43,10 @@
 - [Audiobooks](http://paradiselostreading.wordpress.com/the-recordings/)
 - [Revelations, Google Play books](https://play.google.com/books/reader?id=_-IhIjGMUvYC&printsec=frontcover&pg=GBS.PT4624)
 -- Requires sign-in
+- [Loeb Classics](https://www.loebclassics.com)
+- [Bible](https://www.mechon-mamre.org), in both Hebrew and Englishs
+- [Bible](http://bible.ort.org/intro1.asp?lang=1) sung in Hebrew
+- [Bible](https://www.sefaria.org/texts) with commentary, in both English and Hebrew
 
 ## Machine learning
 - [Arxiv](https://arxiv.org/)
@@ -55,13 +81,20 @@
 - [XP ISO](https://www.microsoft.com/en-us/download/confirmation.aspx?id=18242&cffa64c5-a636-96fc-e97a-0e907fcc4c04=True)
   (requires license)
 - [Encyclopaedia Britannica](https://school.eb.com/levels/high/students)
-
-## Misc
-
-- [Windows 7](https://microsoft.com/en-us/software-download/windows7)
-  (requires license)
-- [Hillsborough libaries](https://hcplc.org/)
-- [AlternativeTo](https://alternativeto.net/)
+- [Field Programmable gate array](https://en.wikipedia.org/wiki/Field-programmable_gate_array)
+- [Algorithms](https://web.engr.illinois.edu/~jeffe/teaching/algorithms/)
+- [Slightly shady books](https://github.com/haseebr/competitive-programming/tree/master/Materials)
+- [Networking](http://www.bau.edu.jo/UserPortal/UserProfile/PostsAttach/10617_1870_1.pdf)
+- [Art of Unix Programming](http://catb.org/~esr/writings/taoup/html/)
+- [Apache tomcat](http://www.coreservlets.com/Apache-Tomcat-Tutorial/test-server.html#Start-Server)
+- [JavaScript intro](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Arithmetic_Operators)
+- [Make a Lisp](http://www.buildyourownlisp.com/contents)
+- [C reference](http://www.cs.yale.edu/homes/aspnes/classes/223/notes.html)
+- [Recursive Make Considered Harmful](http://aegis.sourceforge.net/auug97.pdf)
+- [PostFix tutorial](https://help.ubuntu.com/community/PostfixBasicSetupHowto)
+- [NirSoft](https://nirsoft.net/), Windows freeware
+- [Shodan](https://www.shodan.io/), index of server headers across the internet
+- [How Do It Know](http://www.buthowdoitknow.com/)
 
 ## Games
 - [Vicious Cycles save](https://bloomengine.com/cycles/index.php?id=y8wrzkxJdS5NykzOSXV0dMxE4xcnlqW6J-aCmIaGIMLMEQwMDA0MwQBE5RhCgYGBgRFEzMAAxIEDQyOghAEA)
