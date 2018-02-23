@@ -1,0 +1,6 @@
+Do your programming in the 'source/nelsonjoshua_hw0x' for
+programming assignment number x. That is, the 'x' should be replaced
+by the actual number of the homework assignment.
+
+Run 'make test' or simply 'make' to test your programs.
+If this works, you should have the appropriate output files in 'testing'.

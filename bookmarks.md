@@ -92,6 +92,7 @@
 - [Recursive Make Considered Harmful](http://aegis.sourceforge.net/auug97.pdf)
 - [PostFix tutorial](https://help.ubuntu.com/community/PostfixBasicSetupHowto)
 - [How Do It Know](http://www.buthowdoitknow.com/)
+- [Programming Notes for Professionals](http://book.goalkicker.com/)
 
 ### Cybersec
 - [NirSoft](https://nirsoft.net/), Windows freeware
