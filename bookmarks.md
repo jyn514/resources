@@ -20,6 +20,7 @@
 - [Coding Horror](https://blog.codinghorror.com/), co-founded StackOverFlow
 - https://danluu.com/
 - [Joel On Software](https://www.joelonsoftware.com/), the guy who made StackOverFlow
+- [Troy Hunt](https://www.troyhunt.com/), various cyber security stuff
 
 ## USC
 - [Blackboard](https://blackboard.sc.edu/),
