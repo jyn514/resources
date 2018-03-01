@@ -71,6 +71,7 @@
 # Firefox, debian-acer 2017
 
 ## Programming
+- [Free books from O'Reilly](http://www.oreilly.com/programming/free/)
 - [Obey the testing goat](http://www.obeythetestinggoat.com/pages/book.html)
 - [Invent with Python book](https://inventwithpython.com/)
 - [Automate the Boring Stuff](https://automatetheboringstuff.com/)
